@@ -2,6 +2,8 @@ package com.example.schoolmanage;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,12 +11,65 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-public class Main2Activity extends AppCompatActivity {
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
+
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+
+public class Main2Activity extends AppCompatActivity {
+ListView listView;
+EditText div;
+Button load;
+FirebaseFirestore firebaseFirestore;
+ArrayList<String> names=new ArrayList<>();
+TextView textView;
+RecyclerView recyclerView;
+CollectionReference documentReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+        listView=findViewById(R.id.list_item);
+//        textView=findViewById(R.id.testtesxt);
+        recyclerView=findViewById(R.id.recycle);
+        firebaseFirestore=FirebaseFirestore.getInstance();
+        div=findViewById(R.id.enterdiv);
+        load=findViewById(R.id.loaddiv);
+        load.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (div.getText().toString().isEmpty())
+                {
+                    Toast.makeText(Main2Activity.this,"Please Enter Division",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                documentReference=firebaseFirestore.collection(div.getText().toString());
+                documentReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (DocumentSnapshot documentSnapshot:queryDocumentSnapshots)
+                        {
+                            names.add(documentSnapshot.toObject(Student.class).getName());
+                        }
+                        ad();
+                    }
+                });
+            }
+        });
+
     }
 
     @Override
@@ -41,5 +96,10 @@ public class Main2Activity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    void ad(){
+        RecyclerAdapter adapter=new RecyclerAdapter(names,this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }

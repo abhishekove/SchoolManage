@@ -6,6 +6,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Main2Activity">
+<EditText
+    android:layout_width="match_parent"
+    android:id="@+id/enterdiv"
+    app:layout_constraintTop_toTopOf="parent"
+    android:hint="Enter Division"
+    app:layout_constraintVertical_weight="0"
+    android:layout_height="wrap_content"/>
+    <Button
+        android:layout_width="match_parent"
+        android:text="Load"
+        android:id="@+id/loaddiv"
+        app:layout_constraintTop_toBottomOf="@id/enterdiv"
+        android:layout_height="wrap_content"/>
 
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loaddiv" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -51,8 +51,7 @@ FirebaseFirestore db=FirebaseFirestore.getInstance();
                 if (emails.getText().toString().isEmpty())
                 {
                     Toast.makeText(AddNew.this,"Add Email Id",Toast.LENGTH_SHORT).show();
-                    return;
-                }
+                    return;                }
                 if (passs.getText().toString().isEmpty())
                 {
                     Toast.makeText(AddNew.this,"Add Password",Toast.LENGTH_SHORT).show();
@@ -64,8 +63,9 @@ FirebaseFirestore db=FirebaseFirestore.getInstance();
                     return;
                 }
                 Map<String,String> data=new HashMap<>();
+                Student student=new Student(sac.getText().toString(),roll.getText().toString());
                 data.put(sac.getText().toString(),roll.getText().toString());
-                db.collection(div.getText().toString()).document(sac.getText().toString()).set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+                db.collection(div.getText().toString()).document(sac.getText().toString()).set(student).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(AddNew.this,"Success",Toast.LENGTH_SHORT).show();
