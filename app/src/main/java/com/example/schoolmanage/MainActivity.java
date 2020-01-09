@@ -49,7 +49,7 @@ Button signin;
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(MainActivity.this,"Some error occured",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
                     }
                 });
             }

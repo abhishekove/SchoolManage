@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,11 +13,19 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
-    ArrayList<String> namesl=new ArrayList<>();
+    ArrayList<String> namesl;
+    ArrayList<Student> students;
     Context context;
+
+    public RecyclerAdapter(ArrayList<String> namesl, ArrayList<Student> students, Context context) {
+        this.namesl = namesl;
+        this.students = students;
+        this.context = context;
+    }
 
     public RecyclerAdapter(ArrayList<String> namesl, Context context) {
         this.namesl = namesl;
@@ -33,16 +41,24 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+        final Date d=new Date();
 
         holder.textView.setText(namesl.get(position));
 
-        holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
+        holder.textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,namesl.get(position),Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context,namesl.get(position),Toast.LENGTH_SHORT).show();
+                if (holder.checkBox.isChecked())
+                {
+
+                    students.get(position).attendance.put((d.getDate())+(d.getMonth()+1)+(d.getYear()+1900), "Present");
+                    Toast.makeText(context,students.get(position).attendance.get((d.getDate())+(d.getMonth()+1)+(d.getYear()+1900)),Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
     }
 
     @Override
@@ -53,10 +69,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public  class ViewHolder extends RecyclerView.ViewHolder{
 TextView textView;
         ConstraintLayout constraintLayout;
+        CheckBox checkBox;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textView=itemView.findViewById(R.id.exname);
             constraintLayout=itemView.findViewById(R.id.exlayout);
+            checkBox=itemView.findViewById(R.id.checkbo);
         }
     }
 }

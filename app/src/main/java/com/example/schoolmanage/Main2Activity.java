@@ -34,6 +34,7 @@ EditText div;
 Button load;
 FirebaseFirestore firebaseFirestore;
 ArrayList<String> names=new ArrayList<>();
+ArrayList<Student> students=new ArrayList<>();
 TextView textView;
 RecyclerView recyclerView;
 CollectionReference documentReference;
@@ -60,9 +61,12 @@ CollectionReference documentReference;
                 documentReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        names.clear();
                         for (DocumentSnapshot documentSnapshot:queryDocumentSnapshots)
                         {
-                            names.add(documentSnapshot.toObject(Student.class).getName());
+                            Student student=documentSnapshot.toObject(Student.class);
+                            names.add(student.getName());
+                            students.add(student);
                         }
                         ad();
                     }
@@ -98,7 +102,7 @@ CollectionReference documentReference;
         return super.onOptionsItemSelected(item);
     }
     void ad(){
-        RecyclerAdapter adapter=new RecyclerAdapter(names,this);
+        RecyclerAdapter adapter=new RecyclerAdapter(names,students,this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
