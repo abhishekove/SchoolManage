@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SchoolManage</string>
+    <string name="load">Load</string>
+    <string name="enter_division">Enter Division</string>
 </resources>

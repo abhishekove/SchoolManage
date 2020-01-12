@@ -1,9 +1,10 @@
 package com.example.schoolmanage;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class Student {
-    String name,roll;
+public class Student implements Serializable {
+   private String name,roll;
     HashMap<Integer, String> attendance=new HashMap<Integer, String>();
     public Student() {
     }

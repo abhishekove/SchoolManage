@@ -4,28 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".Main2Activity">
+    tools:context=".studentifo">
 
-    <EditText
-        android:id="@+id/enterdiv"
+    <TextView
+        android:id="@+id/stuname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/enter_division"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_weight="0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/loaddiv"
+    <TextView
+        android:id="@+id/sturoll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/load"
-        app:layout_constraintTop_toBottomOf="@id/enterdiv" />
-
+        app:layout_constraintTop_toBottomOf="@id/stuname" />
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycle"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loaddiv" />
+        app:layout_constraintTop_toBottomOf="@id/sturoll"
+        android:id="@+id/rec"
+        android:layout_height="wrap_content"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,42 +29,40 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 public class Main2Activity extends AppCompatActivity {
-ListView listView;
-EditText div;
-Button load;
-FirebaseFirestore firebaseFirestore;
-ArrayList<String> names=new ArrayList<>();
-ArrayList<Student> students=new ArrayList<>();
-TextView textView;
-RecyclerView recyclerView;
-CollectionReference documentReference;
+    ListView listView;
+    EditText div;
+    Button load;
+    FirebaseFirestore firebaseFirestore;
+    ArrayList<String> names = new ArrayList<>();
+    ArrayList<Student> students = new ArrayList<>();
+    RecyclerView recyclerView;
+    CollectionReference documentReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        listView=findViewById(R.id.list_item);
-//        textView=findViewById(R.id.testtesxt);
-        recyclerView=findViewById(R.id.recycle);
-        firebaseFirestore=FirebaseFirestore.getInstance();
-        div=findViewById(R.id.enterdiv);
-        load=findViewById(R.id.loaddiv);
+
+
+        recyclerView = findViewById(R.id.recycle);
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        div = findViewById(R.id.enterdiv);
+        load = findViewById(R.id.loaddiv);
         load.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (div.getText().toString().isEmpty())
-                {
-                    Toast.makeText(Main2Activity.this,"Please Enter Division",Toast.LENGTH_SHORT).show();
+                if (div.getText().toString().isEmpty()) {
+                    Toast.makeText(Main2Activity.this, "Please Enter Division", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                documentReference=firebaseFirestore.collection(div.getText().toString());
+                documentReference = firebaseFirestore.collection(div.getText().toString());
                 documentReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         names.clear();
-                        for (DocumentSnapshot documentSnapshot:queryDocumentSnapshots)
-                        {
-                            Student student=documentSnapshot.toObject(Student.class);
+                        for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                            Student student = documentSnapshot.toObject(Student.class);
                             names.add(student.getName());
                             students.add(student);
                         }
@@ -78,31 +76,30 @@ CollectionReference documentReference;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater=getMenuInflater();
-        inflater.inflate(R.menu.add_menu,menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.add_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        int id=item.getItemId();
-        if (id==R.id.addnew)
-        {
-            Intent intent=new Intent(Main2Activity.this,AddNew.class);
+        int id = item.getItemId();
+        if (id == R.id.addnew) {
+            Intent intent = new Intent(Main2Activity.this, AddNew.class);
             startActivity(intent);
         }
-        if (id==R.id.addf)
-        {
-            Intent intent=new Intent(Main2Activity.this,AddF.class);
+        if (id == R.id.addf) {
+            Intent intent = new Intent(Main2Activity.this, AddF.class);
             startActivity(intent);
 
         }
 
         return super.onOptionsItemSelected(item);
     }
-    void ad(){
-        RecyclerAdapter adapter=new RecyclerAdapter(names,students,this);
+
+    void ad() {
+        RecyclerAdapter adapter = new RecyclerAdapter(names, students, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
