@@ -99,7 +99,7 @@ public class Main2Activity extends AppCompatActivity {
     }
 
     void ad() {
-        RecyclerAdapter adapter = new RecyclerAdapter(names, students, this);
+        RecyclerAdapter adapter = new RecyclerAdapter(names, students, this,div.getText().toString());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

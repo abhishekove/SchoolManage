@@ -10,14 +10,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
 public class attamaadapter extends RecyclerView.Adapter<attamaadapter.ViewHolder> {
-HashMap<Integer,String> map=new HashMap<>();
+    ArrayList<HashMap> arrayList=new ArrayList<>();
+
+
+
+    HashMap<Integer,String> map;
 Context context;
     private Object[] set;
-
+    public attamaadapter(ArrayList<HashMap> arrayList, Context context) {
+        this.arrayList = arrayList;
+        this.context = context;
+    }
 
     public attamaadapter(HashMap<Integer, String> map, Context context) {
         this.map = map;
@@ -29,6 +37,10 @@ Context context;
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.attma,parent,false);
         ViewHolder viewHolder=new ViewHolder(view);
+        for (int i=0;i<arrayList.size();i++)
+        {
+
+        }
         set=map.keySet().toArray();
         return viewHolder;
     }
@@ -36,6 +48,7 @@ Context context;
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.date.setText((Integer) set[position]);
+        holder.state.setText(map.get(holder.date.getText()));
     }
 
     @Override

@@ -13,16 +13,22 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
   private   ArrayList<String> namesl;
     private ArrayList<Student> students;
     private Context context;
-    String ref;
+
+    private String ref;
 
     public RecyclerAdapter(ArrayList<String> namesl, ArrayList<Student> students, Context context, String ref) {
         this.namesl = namesl;
@@ -61,9 +67,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             public void onClick(View v) {
                 if (holder.checkBox.isChecked())
                 {
-
-                    students.get(position).attendance.put((d.getDate())+(d.getMonth()+1)+(d.getYear()+1900), "Present");
-                    Toast.makeText(context,students.get(position).attendance.get((d.getDate())+(d.getMonth()+1)+(d.getYear()+1900)),Toast.LENGTH_SHORT).show();
+                    HashMap<String,String> map=new HashMap<>();
+                    map.put((String.valueOf((d.getDate()))+"-"+String.valueOf((d.getMonth()+1))+"-"+String.valueOf((d.getYear()+1900))),"Present");
+//                    holder.firebaseFirestore.collection(ref).
+                    holder.firebaseFirestore.collection(ref).document(students.get(position).getName()).collection("attendance").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                           Toast.makeText(context,"sucess",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+//
                 }
             }
         });
@@ -73,6 +86,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             public void onClick(View v) {
                Intent intent=new Intent(context,studentifo.class);
                intent.putExtra("Student", (Serializable) students.get(position));
+//               intent.putExtra()
                context.startActivity(intent);
 
             }
@@ -88,12 +102,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public  class ViewHolder extends RecyclerView.ViewHolder{
 TextView textView;
         ConstraintLayout constraintLayout;
+        FirebaseFirestore firebaseFirestore;
         CheckBox checkBox;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textView=itemView.findViewById(R.id.exname);
             constraintLayout=itemView.findViewById(R.id.exlayout);
             checkBox=itemView.findViewById(R.id.checkbo);
+            firebaseFirestore=FirebaseFirestore.getInstance();
         }
     }
 }
