@@ -86,7 +86,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             public void onClick(View v) {
                Intent intent=new Intent(context,studentifo.class);
                intent.putExtra("Student", (Serializable) students.get(position));
-               intent.putExtra("Docreff",ref+'/'+students.get(position).getName());
 //               intent.putExtra()
                context.startActivity(intent);
 
