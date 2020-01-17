@@ -37,23 +37,22 @@ Context context;
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.attma,parent,false);
         ViewHolder viewHolder=new ViewHolder(view);
-        for (int i=0;i<arrayList.size();i++)
-        {
 
-        }
-        set=map.keySet().toArray();
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.date.setText((Integer) set[position]);
-        holder.state.setText(map.get(holder.date.getText()));
+
+            set=arrayList.get(position).keySet().toArray();
+            holder.date.setText((CharSequence) set[0]);
+            holder.state.setText((CharSequence) arrayList.get(position).get(set[0]));
+
     }
 
     @Override
     public int getItemCount() {
-        return map.size();
+        return arrayList.size();
     }
 
     public  class ViewHolder extends RecyclerView.ViewHolder{

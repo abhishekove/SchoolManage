@@ -85,14 +85,19 @@ public class Main2Activity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         int id = item.getItemId();
-        if (id == R.id.addnew) {
-            Intent intent = new Intent(Main2Activity.this, AddNew.class);
-            startActivity(intent);
-        }
-        if (id == R.id.addf) {
-            Intent intent = new Intent(Main2Activity.this, AddF.class);
-            startActivity(intent);
-
+        switch (id)
+        {
+            case R.id.addnew:
+                Intent intent = new Intent(Main2Activity.this, AddNew.class);
+                startActivity(intent);
+                break;
+            case R.id.addf:
+                Intent intent1 = new Intent(Main2Activity.this, AddF.class);
+                startActivity(intent1);
+                break;
+            case R.id.addM:
+                Intent intent2=new Intent(Main2Activity.this,AddMarks.class);
+                startActivity(intent2);
         }
 
         return super.onOptionsItemSelected(item);
