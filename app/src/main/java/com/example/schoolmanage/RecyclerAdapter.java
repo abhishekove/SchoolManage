@@ -13,9 +13,13 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -67,13 +71,63 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             public void onClick(View v) {
                 if (holder.checkBox.isChecked())
                 {
-                    HashMap<String,String> map=new HashMap<>();
+                    final HashMap<String,String> map=new HashMap<>();
                     map.put((String.valueOf((d.getDate()))+"-"+String.valueOf((d.getMonth()+1))+"-"+String.valueOf((d.getYear()+1900))),"Present");
-//                    holder.firebaseFirestore.collection(ref).
-                    holder.firebaseFirestore.collection(ref).document(students.get(position).getName()).collection("attendance").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    holder.firebaseFirestore.collection(ref).document(students.get(position).getName()).collection("attendance").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                           Toast.makeText(context,"sucess",Toast.LENGTH_SHORT).show();
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful())
+                            {
+                                for (QueryDocumentSnapshot queryDocumentSnapshot:task.getResult())
+                                {
+                                    if (queryDocumentSnapshot.getData().containsKey((String.valueOf((d.getDate()))+"-"+String.valueOf((d.getMonth()+1))+"-"+String.valueOf((d.getYear()+1900)))))
+                                    {
+                                        return;
+                                    }
+                                }
+
+                                holder.firebaseFirestore.collection(ref).document(students.get(position).getName()).collection("attendance").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    @Override
+                                    public void onSuccess(DocumentReference documentReference) {
+                                        Toast.makeText(context,"sucess",Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                            }
+                        }
+                    });
+//
+                }
+            }
+        });
+        holder.abs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (holder.abs.isChecked())
+                {
+                    final HashMap<String,String> map=new HashMap<>();
+                    map.put((String.valueOf((d.getDate()))+"-"+String.valueOf((d.getMonth()+1))+"-"+String.valueOf((d.getYear()+1900))),"Absent");
+                    holder.firebaseFirestore.collection(ref).document(students.get(position).getName()).collection("attendance").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful())
+                            {
+                                for (QueryDocumentSnapshot queryDocumentSnapshot:task.getResult())
+                                {
+                                    if (queryDocumentSnapshot.getData().containsKey((String.valueOf((d.getDate()))+"-"+String.valueOf((d.getMonth()+1))+"-"+String.valueOf((d.getYear()+1900)))))
+                                    {
+                                        return;
+                                    }
+                                }
+
+                                holder.firebaseFirestore.collection(ref).document(students.get(position).getName()).collection("attendance").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    @Override
+                                    public void onSuccess(DocumentReference documentReference) {
+                                        Toast.makeText(context,"sucess",Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                            }
                         }
                     });
 //
@@ -86,7 +140,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             public void onClick(View v) {
                Intent intent=new Intent(context,studentifo.class);
                intent.putExtra("Student", (Serializable) students.get(position));
-//               intent.putExtra()
+
                context.startActivity(intent);
 
             }
@@ -103,13 +157,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 TextView textView;
         ConstraintLayout constraintLayout;
         FirebaseFirestore firebaseFirestore;
-        CheckBox checkBox;
+        CheckBox checkBox,abs;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textView=itemView.findViewById(R.id.exname);
             constraintLayout=itemView.findViewById(R.id.exlayout);
             checkBox=itemView.findViewById(R.id.checkbo);
             firebaseFirestore=FirebaseFirestore.getInstance();
+            abs=itemView.findViewById(R.id.abs);
         }
     }
 }
