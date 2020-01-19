@@ -1,6 +1,7 @@
 package com.example.schoolmanage;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -8,13 +9,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 public class AddMarks extends AppCompatActivity {
 RecyclerView recyclerView;
 Button button,up;
 EditText editText;
 FirebaseFirestore firestore;
+ArrayList<Student> arrayList =new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,14 +34,23 @@ FirebaseFirestore firestore;
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                firestore.collection(editText.getText().toString()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot queryDocumentSnapshot:queryDocumentSnapshots)
+                        {
+                            arrayList.add(queryDocumentSnapshot.toObject(Student.class));
+                        }
+                        add();
+                    }
+                });
             }
         });
-        up.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+    }
+    void add()
+    {
+        Recy recy=new Recy(arrayList,this);
+        recyclerView.setAdapter(recy);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }

@@ -16,6 +16,7 @@
         <activity android:name=".AddF" />
         <activity android:name=".AddNew" />
         <activity android:name=".Main2Activity" />
+        <activity android:name=".AddMarks"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

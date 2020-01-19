@@ -22,10 +22,15 @@
         android:text="@string/load"
         app:layout_constraintTop_toBottomOf="@id/enterdiv" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycle"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loaddiv" />
+        app:layout_constraintTop_toBottomOf="@id/loaddiv"
+        android:layout_height="wrap_content">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycle"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loaddiv" />
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
