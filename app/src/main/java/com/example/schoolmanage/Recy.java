@@ -49,7 +49,7 @@ private String exname,ref;
                     HashMap<String,String> hashMap=new HashMap<>();
                     hashMap.put(exname,holder.editText.getText().toString());
 
-                 holder.firestore.collection(ref).document(name.get(position).getName()).collection(exname).document(exname).set(hashMap);
+                 holder.firestore.collection(ref).document(name.get(position).getName()).collection("exams").document(exname).set(hashMap);
                 }
             });
 

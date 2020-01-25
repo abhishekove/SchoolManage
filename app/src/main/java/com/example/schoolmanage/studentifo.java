@@ -18,6 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -32,8 +33,8 @@ FirebaseFirestore firebaseFirestore;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_studentifo);
         Intent intent=getIntent();
-        Student student= (Student) intent.getSerializableExtra("Student");
-        String st=intent.getStringExtra("REF");
+        final Student student= (Student) intent.getSerializableExtra("Student");
+        final String st=intent.getStringExtra("REF");
         stuname=findViewById(R.id.stuname);
         sturoll=findViewById(R.id.sturoll);
         button=findViewById(R.id.viewmarks);
@@ -46,6 +47,8 @@ FirebaseFirestore firebaseFirestore;
             @Override
             public void onClick(View v) {
                 Intent intent1=new Intent(studentifo.this,ShowMarks.class);
+                intent1.putExtra("Student", (Serializable)student);
+                intent1.putExtra("REF",st);
                 startActivity(intent1);
             }
         });
