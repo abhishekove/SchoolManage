@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +25,7 @@ public class studentifo extends AppCompatActivity {
 TextView stuname,sturoll;
 ArrayList<HashMap> arrayList=new ArrayList<>();
 RecyclerView rec;
+Button button;
 FirebaseFirestore firebaseFirestore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +36,20 @@ FirebaseFirestore firebaseFirestore;
         String st=intent.getStringExtra("REF");
         stuname=findViewById(R.id.stuname);
         sturoll=findViewById(R.id.sturoll);
+        button=findViewById(R.id.viewmarks);
         firebaseFirestore=FirebaseFirestore.getInstance();
         rec=findViewById(R.id.rec);
         stuname.setText(student.getName());
         sturoll.setText(student.getRoll());
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1=new Intent(studentifo.this,ShowMarks.class);
+                startActivity(intent1);
+            }
+        });
+
         assert st != null;
         firebaseFirestore.collection(st).document(student.getName()).collection("attendance").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override

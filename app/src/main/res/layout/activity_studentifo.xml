@@ -17,9 +17,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/stuname" />
+    <Button
+        android:layout_width="wrap_content"
+        android:id="@+id/viewmarks"
+        app:layout_constraintTop_toBottomOf="@id/sturoll"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="View Marks"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_height="wrap_content"/>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        app:layout_constraintTop_toBottomOf="@id/sturoll"
+        app:layout_constraintTop_toBottomOf="@id/viewmarks"
         android:id="@+id/rec"
         android:layout_height="wrap_content"/>
 

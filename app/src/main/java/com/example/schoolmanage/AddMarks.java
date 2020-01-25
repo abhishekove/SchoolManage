@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -18,8 +19,8 @@ import java.util.ArrayList;
 
 public class AddMarks extends AppCompatActivity {
 RecyclerView recyclerView;
-Button button,up;
-EditText editText;
+Button button;
+EditText editText,tname;
 FirebaseFirestore firestore;
 ArrayList<Student> arrayList =new ArrayList<>();
     @Override
@@ -29,7 +30,7 @@ ArrayList<Student> arrayList =new ArrayList<>();
         recyclerView=findViewById(R.id.recc);
         editText=findViewById(R.id.loadtdiv);
         button=findViewById(R.id.loadbut);
-        up=findViewById(R.id.upmarks);
+        tname=findViewById(R.id.testname);
         firestore=FirebaseFirestore.getInstance();
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,9 +38,15 @@ ArrayList<Student> arrayList =new ArrayList<>();
                 firestore.collection(editText.getText().toString()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        arrayList.clear();
                         for (QueryDocumentSnapshot queryDocumentSnapshot:queryDocumentSnapshots)
                         {
                             arrayList.add(queryDocumentSnapshot.toObject(Student.class));
+                        }
+                        if (tname.getText().toString().isEmpty())
+                        {
+                            Toast.makeText(AddMarks.this,"Add test name",Toast.LENGTH_SHORT).show();
+                            return;
                         }
                         add();
                     }
@@ -49,7 +56,7 @@ ArrayList<Student> arrayList =new ArrayList<>();
     }
     void add()
     {
-        Recy recy=new Recy(arrayList,this);
+        Recy recy=new Recy(arrayList,this,editText.getText().toString(),tname.getText().toString());
         recyclerView.setAdapter(recy);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

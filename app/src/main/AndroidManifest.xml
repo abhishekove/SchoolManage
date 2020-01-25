@@ -12,11 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".studentifo"></activity>
+        <activity android:name=".ShowMarks"></activity>
+        <activity android:name=".studentifo" />
         <activity android:name=".AddF" />
         <activity android:name=".AddNew" />
         <activity android:name=".Main2Activity" />
-        <activity android:name=".AddMarks"/>
+        <activity android:name=".AddMarks" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
