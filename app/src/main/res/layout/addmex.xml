@@ -11,10 +11,12 @@
     <EditText
         android:layout_width="0dp"
         android:layout_weight="1"
+        android:hint="@string/enter_marks"
         android:id="@+id/marks"
         android:layout_height="wrap_content"/>
     <Button
         android:layout_width="wrap_content"
+        android:text="@string/upload_marks"
         android:id="@+id/check"
         android:layout_height="wrap_content"/>
 </LinearLayout>

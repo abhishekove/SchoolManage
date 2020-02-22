@@ -10,12 +10,19 @@
     <EditText
         android:layout_width="match_parent"
         android:id="@+id/user"
+        android:hint="Enter userid"
         android:layout_height="wrap_content" />
     <EditText
         android:layout_width="match_parent"
         android:id="@+id/pass"
+        android:hint="@string/EP"
         android:password="true"
         android:layout_height="wrap_content" />
+    <EditText
+        android:layout_width="match_parent"
+        android:id="@+id/enternae"
+        android:hint="@string/enter_name"
+        android:layout_height="wrap_content"/>
     <Button
         android:layout_width="wrap_content"
         android:id="@+id/signin"

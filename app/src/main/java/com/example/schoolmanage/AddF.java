@@ -35,8 +35,7 @@ Button fadd;
         mAuth=FirebaseAuth.getInstance();
         emailf=findViewById(R.id.emailf);
         passf=findViewById(R.id.passf);
-        final Map<String,String> data=new HashMap<>();
-        data.put("Name",fac.getText().toString());
+
         fadd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,7 +54,8 @@ Button fadd;
                     Toast.makeText(AddF.this,"Add Password",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                db.collection("Faculty").document(fac.getText().toString()).set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+                final Student student=new Student(fac.getText().toString(),"Faculty");
+                db.collection("Faculty").document(fac.getText().toString()).set(student).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(AddF.this,"Successful",Toast.LENGTH_SHORT).show();

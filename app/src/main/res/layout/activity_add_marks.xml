@@ -9,16 +9,19 @@
     android:layout_width="match_parent"
     app:layout_constraintTop_toTopOf="parent"
     android:id="@+id/loadtdiv"
+    android:hint="@string/enter_division_name"
     android:layout_height="wrap_content"/>
     <EditText
         android:layout_width="match_parent"
         app:layout_constraintTop_toBottomOf="@id/loadtdiv"
         android:id="@+id/testname"
+        android:hint="@string/enter_test_name"
         android:layout_height="wrap_content"/>
     <Button
         android:layout_width="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/testname"
         app:layout_constraintRight_toRightOf="parent"
+        android:text="@string/load"
         app:layout_constraintLeft_toLeftOf="parent"
         android:id="@+id/loadbut"
         android:layout_height="wrap_content"/>

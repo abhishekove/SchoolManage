@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -37,16 +39,22 @@ public class Main2Activity extends AppCompatActivity {
     ArrayList<Student> students = new ArrayList<>();
     RecyclerView recyclerView;
     CollectionReference documentReference;
+//    private boolean bol;
+    private Boolean nae;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+        Intent intent=getIntent();
 
-
+          nae=intent.getExtras().getBoolean("Nae");
         recyclerView = findViewById(R.id.recycle);
         firebaseFirestore = FirebaseFirestore.getInstance();
         div = findViewById(R.id.enterdiv);
+
+
+
         load = findViewById(R.id.loaddiv);
         load.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +86,15 @@ public class Main2Activity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.add_menu, menu);
-        return true;
+
+        Log.d("State", String.valueOf(nae));
+
+        return getIntent().getExtras().getBoolean("Nae");
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
