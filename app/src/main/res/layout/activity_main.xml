@@ -10,7 +10,7 @@
     <EditText
         android:layout_width="match_parent"
         android:id="@+id/user"
-        android:hint="Enter userid"
+        android:hint="Enter user ID"
         android:layout_height="wrap_content" />
     <EditText
         android:layout_width="match_parent"
@@ -23,10 +23,16 @@
         android:id="@+id/enternae"
         android:hint="@string/enter_name"
         android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="Forgot password?  "
+        android:layout_gravity="right"
+        android:id="@+id/forgot"
+        android:layout_height="wrap_content"/>
     <Button
         android:layout_width="wrap_content"
         android:id="@+id/signin"
-        android:text="Sign In"
+        android:text="Log In"
         android:layout_height="wrap_content" />
 
 </LinearLayout>

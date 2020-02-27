@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -25,6 +26,7 @@ import java.lang.ref.SoftReference;
 public class MainActivity extends AppCompatActivity {
 EditText user,pass,nae;
 private FirebaseAuth mAuth;
+TextView forgot;
 Button signin;
     private CollectionReference documentReference;
     FirebaseFirestore firebaseFirestore;
@@ -36,6 +38,7 @@ Button signin;
         setContentView(R.layout.activity_main);
         user=findViewById(R.id.user);
         pass=findViewById(R.id.pass);
+        forgot=findViewById(R.id.forgot);
         firebaseFirestore = FirebaseFirestore.getInstance();
         nae=findViewById(R.id.enternae);
         signin=findViewById(R.id.signin);
@@ -60,6 +63,7 @@ Button signin;
                 }
 
                 documentReference = firebaseFirestore.collection("Faculty");
+
                 documentReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
@@ -70,6 +74,15 @@ Button signin;
                                 return;
                             }
                         }
+
+                    }
+                });
+
+                forgot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent=new Intent(MainActivity.this,Forgotpassword.class);
+                        startActivity(intent);
 
                     }
                 });

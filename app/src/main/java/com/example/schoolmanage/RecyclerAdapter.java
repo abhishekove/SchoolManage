@@ -14,6 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
@@ -31,14 +32,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
   private   ArrayList<String> namesl;
     private ArrayList<Student> students;
     private Context context;
+    private Boolean state;
 
     private String ref;
 
-    public RecyclerAdapter(ArrayList<String> namesl, ArrayList<Student> students, Context context, String ref) {
+    public RecyclerAdapter(ArrayList<String> namesl, ArrayList<Student> students, Context context, String ref,boolean state) {
         this.namesl = namesl;
         this.students = students;
         this.context = context;
         this.ref = ref;
+        this.state=state;
     }
 
     public RecyclerAdapter(ArrayList<String> namesl, ArrayList<Student> students, Context context) {
@@ -63,9 +66,32 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final Date d=new Date();
-
+        holder.del.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (holder.del.isChecked()){
+                    holder.firebaseFirestore.collection(ref).document(students.get(position).getName()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(context,"Success",Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(context,"Failure",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        });
         holder.textView.setText(namesl.get(position));
         holder.checkBox.setText("Present");
+//        holder.checkBox.setVisibility(View.INVISIBLE);
+        if (!state){
+            holder.checkBox.setVisibility(View.INVISIBLE);
+            holder.abs.setVisibility(View.INVISIBLE);
+            holder.del.setVisibility(View.INVISIBLE);
+        }
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,12 +150,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 TextView textView;
         ConstraintLayout constraintLayout;
         FirebaseFirestore firebaseFirestore;
-        CheckBox checkBox,abs;
+        CheckBox checkBox,abs,del;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textView=itemView.findViewById(R.id.exname);
             constraintLayout=itemView.findViewById(R.id.exlayout);
             checkBox=itemView.findViewById(R.id.checkbo);
+            del=itemView.findViewById(R.id.todelete);
             firebaseFirestore=FirebaseFirestore.getInstance();
             abs=itemView.findViewById(R.id.abs);
         }

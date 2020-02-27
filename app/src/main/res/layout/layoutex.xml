@@ -5,10 +5,16 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:id="@+id/todelete"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="wrap_content"/>
 <TextView
     android:layout_width="350dp"
     android:id="@+id/exname"
-    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintLeft_toRightOf="@id/todelete"
     app:layout_constraintTop_toTopOf="parent"
     android:layout_height="wrap_content"/>
     <CheckBox

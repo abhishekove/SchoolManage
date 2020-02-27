@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ShowMarks"></activity>
+        <activity android:name=".Forgotpassword"></activity>
+        <activity android:name=".ShowMarks" />
         <activity android:name=".studentifo" />
         <activity android:name=".AddF" />
         <activity android:name=".AddNew" />

@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -39,6 +40,7 @@ public class Main2Activity extends AppCompatActivity {
     ArrayList<Student> students = new ArrayList<>();
     RecyclerView recyclerView;
     CollectionReference documentReference;
+
 //    private boolean bol;
     private Boolean nae;
 
@@ -47,13 +49,13 @@ public class Main2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         Intent intent=getIntent();
-
+//        mAuth=FirebaseAuth.getInstance();
           nae=intent.getExtras().getBoolean("Nae");
         recyclerView = findViewById(R.id.recycle);
         firebaseFirestore = FirebaseFirestore.getInstance();
         div = findViewById(R.id.enterdiv);
 
-
+//        Toast.makeText(this,mAuth.getCurrentUser().getEmail(),Toast.LENGTH_LONG).show();
 
         load = findViewById(R.id.loaddiv);
         load.setOnClickListener(new View.OnClickListener() {
@@ -120,7 +122,7 @@ public class Main2Activity extends AppCompatActivity {
     }
 
     void ad() {
-        RecyclerAdapter adapter = new RecyclerAdapter(names, students, this,div.getText().toString());
+        RecyclerAdapter adapter = new RecyclerAdapter(names, students, this,div.getText().toString(),getIntent().getExtras().getBoolean("Nae"));
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
