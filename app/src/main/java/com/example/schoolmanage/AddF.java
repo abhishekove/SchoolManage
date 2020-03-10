@@ -54,7 +54,7 @@ Button fadd;
                     Toast.makeText(AddF.this,"Add Password",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                final Student student=new Student(fac.getText().toString(),"Faculty");
+                final Student student=new Student(fac.getText().toString(),"Faculty",emailf.getText().toString());
                 db.collection("Faculty").document(fac.getText().toString()).set(student).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

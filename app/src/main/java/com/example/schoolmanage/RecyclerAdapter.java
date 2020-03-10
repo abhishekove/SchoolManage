@@ -99,7 +99,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 {
                     final HashMap<String,String> map=new HashMap<>();
                     map.put((String.valueOf((d.getDate()))+"-"+String.valueOf((d.getMonth()+1))+"-"+String.valueOf((d.getYear()+1900))),"Present");
-                    holder.firebaseFirestore.collection(ref).document(students.get(position).getName()).collection("attendance").document((String.valueOf((d.getDate()))+"-"+String.valueOf((d.getMonth()+1))+"-"+String.valueOf((d.getYear()+1900)))).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    holder.firebaseFirestore.collection(ref).document(students.get(position).getName()).collection("attendance").document("attend").set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(context,"Success",Toast.LENGTH_SHORT).show();
@@ -117,7 +117,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 {
                     final HashMap<String,String> map=new HashMap<>();
                     map.put((String.valueOf((d.getDate()))+"-"+String.valueOf((d.getMonth()+1))+"-"+String.valueOf((d.getYear()+1900))),"Absent");
-                    holder.firebaseFirestore.collection(ref).document(students.get(position).getName()).collection("attendance").document((String.valueOf((d.getDate()))+"-"+String.valueOf((d.getMonth()+1))+"-"+String.valueOf((d.getYear()+1900)))).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    holder.firebaseFirestore.collection(ref).document(students.get(position).getName()).collection("attendance").document("attend").set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(context,"Success",Toast.LENGTH_SHORT).show();

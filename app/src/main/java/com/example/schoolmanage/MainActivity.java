@@ -43,6 +43,17 @@ Button signin;
         nae=findViewById(R.id.enternae);
         signin=findViewById(R.id.signin);
         mAuth=FirebaseAuth.getInstance();
+
+        forgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,Forgotpassword.class);
+                Toast.makeText(MainActivity.this,"Context",Toast.LENGTH_SHORT).show();
+                startActivity(intent);
+
+            }
+        });
+
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,7 +79,7 @@ Button signin;
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                             Student student = documentSnapshot.toObject(Student.class);
-                            if (student.getName().equals(nae.getText().toString())){
+                            if (student.getEmail().equals(user.getText().toString())){
                                 bol=true;
                                 Log.d("Name","It is found");
                                 return;
@@ -78,14 +89,7 @@ Button signin;
                     }
                 });
 
-                forgot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent=new Intent(MainActivity.this,Forgotpassword.class);
-                        startActivity(intent);
 
-                    }
-                });
 
                 mAuth.signInWithEmailAndPassword(user.getText().toString(),pass.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override

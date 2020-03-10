@@ -59,7 +59,7 @@ public class AddNew extends AppCompatActivity {
                     return;
                 }
 
-                Student student = new Student(sac.getText().toString(), roll.getText().toString());
+                Student student = new Student(sac.getText().toString(), roll.getText().toString(),emails.getText().toString());
 
                 db.collection(div.getText().toString()).document(sac.getText().toString()).set(student).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
