@@ -24,7 +24,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.lang.ref.SoftReference;
 
 public class MainActivity extends AppCompatActivity {
-EditText user,pass,nae;
+EditText user,pass;
 private FirebaseAuth mAuth;
 TextView forgot;
 Button signin;
@@ -40,7 +40,7 @@ Button signin;
         pass=findViewById(R.id.pass);
         forgot=findViewById(R.id.forgot);
         firebaseFirestore = FirebaseFirestore.getInstance();
-        nae=findViewById(R.id.enternae);
+
         signin=findViewById(R.id.signin);
         mAuth=FirebaseAuth.getInstance();
 
@@ -62,10 +62,7 @@ Button signin;
                     Toast.makeText(MainActivity.this,"Please Enter Username",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (nae.getText().toString().isEmpty())
-                {
-                    Toast.makeText(MainActivity.this,"Please Enter Name",Toast.LENGTH_SHORT).show();
-                }
+
 
                 if (pass.getText().toString().isEmpty())
                 {
@@ -79,11 +76,13 @@ Button signin;
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                             Student student = documentSnapshot.toObject(Student.class);
-                            if (student.getEmail().equals(user.getText().toString())){
-                                bol=true;
-                                Log.d("Name","It is found");
-                                return;
-                            }
+
+                                if (student.getEmail().equals(user.getText().toString())){
+                                    bol=true;
+                                    Log.d("Name","It is found");
+                                    return;
+                                }
+
                         }
 
                     }

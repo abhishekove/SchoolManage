@@ -18,11 +18,6 @@
         android:hint="@string/EP"
         android:password="true"
         android:layout_height="wrap_content" />
-    <EditText
-        android:layout_width="match_parent"
-        android:id="@+id/enternae"
-        android:hint="@string/enter_name"
-        android:layout_height="wrap_content"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -34,7 +29,8 @@
         android:text="Forgot password?  "
         android:layout_gravity="bottom"
         android:paddingTop="20dp"
-        android:gravity="bottom"
+        android:gravity="right"
+
         android:id="@+id/forgot"
         android:layout_height="wrap_content"/>
 </LinearLayout>

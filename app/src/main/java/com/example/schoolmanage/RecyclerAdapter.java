@@ -70,6 +70,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 if (holder.del.isChecked()){
+
+//                    holder.firebaseFirestore.collection(ref).document(students.get(position).getName()).
+
                     holder.firebaseFirestore.collection(ref).document(students.get(position).getName()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
